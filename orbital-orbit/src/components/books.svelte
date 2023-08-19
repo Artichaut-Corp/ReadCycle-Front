@@ -1,6 +1,9 @@
 <script>
+  import BookItem from "./book-item.svelte";
 
-import BookItem from "./book-item.svelte";
+  
+
+
 
     const books = [
         {
