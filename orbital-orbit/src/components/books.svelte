@@ -1,5 +1,7 @@
 <script>
+
 import BookItem from "./book-item.svelte";
+
 
     const books = [
         {
@@ -12,7 +14,6 @@ import BookItem from "./book-item.svelte";
         }
        
     ]
-    console.log("IHFYOUIFUYOYICVIPUY 1");
 </script>
 <ul>
     {#each books as book}
