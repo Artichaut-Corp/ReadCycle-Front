@@ -5,7 +5,7 @@
 </script>
    
 
-<div class="card card-side bg-base-200 shadow-xl">
+<div class="card card-side bg-base-200 shadow-xl mx-5 my-5">
     <div class="card-body">
       <p class="card-title">Title:</p>
       <p class="card title">Author:</p>
@@ -16,7 +16,7 @@
         <p>sommaire</p>
       
       <div class="card-actions justify-end">
-        <button class="btn btn-primary" on:click={() =>  condition.set(false) }>Hide</button>
+        <button class="btn btn-primary" on:click={() =>  condition.set(false) }>Hide summary</button>
         
       </div>
       {:else}
