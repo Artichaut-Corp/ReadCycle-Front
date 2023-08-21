@@ -1,9 +1,6 @@
 <script>
-  import BookItem from "./book-item.svelte";
 
-  
-
-
+import BookItem from "./book-item.svelte";
 
     const books = [
         {
@@ -14,6 +11,7 @@
             "title": "Livre Test 2",
             "author": "kfpfk"
         }
+       
     ]
 
 </script>
