@@ -12,7 +12,6 @@
         }
        
     ]
-
 </script>
 <ul>
     {#each books as book}
