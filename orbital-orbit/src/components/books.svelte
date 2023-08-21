@@ -1,10 +1,6 @@
 <script>
   import BookItem from "./book-item.svelte";
 
-  
-
-
-
     const books = [
         {
             "title": "Livre Test",
