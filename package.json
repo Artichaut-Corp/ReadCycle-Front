@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "supabase": "^1.86.2",
+    "vscode": "^1.1.37"
+  }
+}
