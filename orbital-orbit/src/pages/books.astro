@@ -6,7 +6,7 @@ import Books from '../components/books.svelte';
 import { pb } from "../pocketbase";
 
 try {
-  const result = await pb.collection('books').getList(1, 2);
+  const result = await pb.collection('books').getList(1, 4);
   console.log('Result:', result);
  
 } catch (error) {

@@ -12,8 +12,8 @@ import BookItem from "./book-item.svelte";
             "title": "Livre Test 2",
             "author": "kfpfk"
         }
-       
     ]
+
 </script>
 <ul>
     {#each books as book}
