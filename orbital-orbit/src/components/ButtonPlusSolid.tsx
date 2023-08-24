@@ -6,7 +6,7 @@ export default function BoutonPlusSolid() {
 
   return (
       <>
-          <button class="btn btn-primary" onClick={add}>Ce bouton a été cliqué {count()} fois</button>
-        </>
-        );
+        <button class="btn btn-primary" onClick={add}>Ce bouton a été cliqué {count()} fois</button>
+      </>
+    );
   }
