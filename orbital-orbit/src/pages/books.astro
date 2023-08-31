@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Books from '../components/books.svelte';
+
+import { pb } from "../pocketbase";
+
+const result = await pb.collection('books').getList(1, 2);
+
+console.log(result);
+
+---
+    
+<Layout title= "books">
+    <Books client:load resultat={result}></Books>    
+</Layout>
+
+
+
+
