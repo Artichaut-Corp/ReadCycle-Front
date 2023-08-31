@@ -5,8 +5,10 @@ export let resultat
 
 </script>                     
     
-<ul>
+<ul class="flex">
     {#each resultat.items as book}
-        <BookItem Title={book.title} Author={book.author} Genre={book.genre_id} Editor={book.editor} ISBN={book.isbn} Summary={book.summary}/>
+        <li>
+            <BookItem Title={book.title} Author={book.author_id} Genre={book.genres_id} Editor={book.editor} ISBN={book.isbn} Summary={book.summary}/>
+        </li>
     {/each}
 </ul>
