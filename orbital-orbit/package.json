@@ -10,11 +10,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/solid-js": "^2.2.0",
-    "@astrojs/svelte": "^3.1.0",
-    "@astrojs/tailwind": "^4.0.0",
+    "@astrojs/solid-js": "^3.0.0",
+    "@astrojs/svelte": "^4.0.0",
+    "@astrojs/tailwind": "^5.0.0",
     "@supabase/supabase-js": "^2.32.0",
-    "astro": "^2.10.7",
+    "astro": "^3.0.4",
     "dotenv": "^16.3.1",
     "eventsource": "^2.0.2",
     "pocketbase": "^0.16.0",
