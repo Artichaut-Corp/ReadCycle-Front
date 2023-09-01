@@ -12,7 +12,7 @@
   <header class="navbar bg-primary mb-12">
     <div class="flex-1">
       <a class="btn btn-ghost normal-case text-x1" href="/">TBD</a>
-      <img src="Logo.svg" alt="logo"/>
+      <img src="logo.svg" alt="logo"/>
     </div>
     <div class="flex-none">
       <div class="flex justify-end flex-1 px-2">
