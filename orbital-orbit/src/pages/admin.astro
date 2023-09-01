@@ -1,0 +1,37 @@
+---
+  import Layout from '../layouts/Layout.astro';
+
+  const locals  = Astro.locals;
+
+  const adminAuth = async (email, password) => {
+    const { token, record } = await locals.pb.admins.authWithPassword(email, password);
+
+    return Astro.redirect('/profile');
+  }
+  
+ if (Astro.request.method === "POST") {
+   try {
+      const data = await Astro.request.formData();
+      const email = data.get("email");
+      const password = data.get("password");
+
+      adminAuth(email, password);
+   } catch (error) {
+     if (error instanceof Error) {
+       console.log(error.message);
+     }
+   }
+ }
+---
+
+<Layout title='admin login'>
+<h1 class="text-base-content text-2xl mb-4 ">Admin Panel</h1>
+    <form method="post" class="place-items-center flex-col flex w-full">
+
+    <input required name="email" type="text" placeholder="Email" class="input input-bordered input-secondary w-full max-w-xs mb-8" />
+    <br>
+    <input required name="password" type="password" placeholder="Mot de passe"  class="input input-bordered input-secondary w-full max-w-xs mb-8" />
+    <br>
+    <button class="btn btn-primary mb-4" type="submit">Connection</button>
+  </form>
+</Layout>

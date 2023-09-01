@@ -1,22 +1,14 @@
 <script>
-
 import BookItem from "./book-item.svelte";
 
+export let resultat
 
-    const books = [
-        {
-            "title": "Livre Test",
-            "author": "FHPLOUF"
-        },
-        {
-            "title": "Livre Test 2",
-            "author": "kfpfk"
-        }
-       
-    ]
-</script>
-<ul>
-    {#each books as book}
-        <BookItem>Titre: {book.title} Auteur: {book.author}</BookItem>
+</script>                     
+    
+<ul class="flex">
+    {#each resultat.items as book}
+        <li>
+            <BookItem Title={book.title} Author={book.author_id} Genre={book.genres_id} Editor={book.editor} ISBN={book.isbn} Summary={book.summary}/>
+        </li>
     {/each}
 </ul>

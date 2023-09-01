@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const locals  = Astro.locals;
+ 
+const errors = { username: "", password: ""};
+ if (Astro.request.method === "POST") {
+   try {
+      const data = await Astro.request.formData();
+      const username = data.get("username");
+      const password = data.get("password");
+    // Must sanityze fields received from the user
+    if (typeof username == null || typeof password == null ) {
+        errors.username += "Email cannot be empty. ";
+        errors.password += "Password cannot be empty. ";
+        
+    } 
+    if (typeof password !== "string" || password.length < 6) {
+      errors.password += "Password must be at least 6 characters. ";
+    }
+    if (username == "123456789") {
+        errors.username += "Super oui oui ";
+
+    } 
+
+    const hasErrors = Object.values(errors).some(msg => msg);
+
+    if (!hasErrors) {
+        const authData = await locals.pb.collection('users').authWithPassword(username, password);
+        console.log(locals.pb.authStore.isValid);
+        //locals.pb.authStore.clear();
+        return Astro.redirect("/profile");
+    }
+    
+   } catch (error) {
+     if (error instanceof Error) {
+       console.log(error.message);
+     }
+   }
+ }
+---
+
+<Layout title='login'>
+<h1 class="text-base-content text-2xl mb-4 ">Connection</h1>
+    <form method="post" class="place-items-center flex-col flex w-full">
+    {
+        errors.username && 
+        <div class="alert alert-warning max-w-xs mb-4 ">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+            <span>{errors.username}</span>
+        </div>
+    }
+    <input required name="username" type="text" placeholder="Username" class="input input-bordered input-secondary w-full max-w-xs mb-8" />
+    <br>
+    {
+        errors.password && 
+        <div class="alert alert-warning max-w-xs mb-4 ">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+            <span>{errors.password}</span>
+        </div>
+    }
+    <input required name="password" type="password" placeholder="Mot de passe"  class="input input-bordered input-secondary w-full max-w-xs mb-8" />
+    <br>
+    <button class="btn btn-primary mb-4" type="submit">Connection</button>
+  </form>
+
+  <p>Vous n'avez pas de compte ? <a href="/signup" class="link link-focus">Cliquez ici pour en créer un</a></p> 
+</Layout>
