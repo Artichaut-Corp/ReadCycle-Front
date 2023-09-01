@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import svelte from "@astrojs/svelte";
 
@@ -6,6 +6,6 @@ import solidJs from "@astrojs/solid-js";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
-  integrations: [tailwind(), svelte(), solidJs()]
+  output: "server",
+  integrations: [tailwind(), svelte(), solidJs()],
 });

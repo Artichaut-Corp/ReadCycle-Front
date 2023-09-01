@@ -1,3 +1,3 @@
-import PocketBase from 'pocketbase';
+import PocketBase from "pocketbase";
 
-export const pb = new PocketBase('https://backendpblivres.hop.sh');
+export const pb = new PocketBase("https://backendpblivres.hop.sh");
