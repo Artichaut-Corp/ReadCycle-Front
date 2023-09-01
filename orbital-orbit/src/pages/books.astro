@@ -2,11 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 import Books from '../components/books.svelte';
 
-import { pb } from "../pocketbase";
+//import { pb } from "../pocketbase";
 
-const result = await pb.collection('books').getList(1, 2);
+const locals = Astro.locals;
 
-console.log(result);
+const result = await locals.pb.collection('books').getList(1, 2);
 
 ---
     

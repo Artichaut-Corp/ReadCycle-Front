@@ -1,12 +1,15 @@
 --- 
-import Header from "../components/Header.svelte";
 import {ViewTransitions} from 'astro:transitions';
-
+import Header from '../components/Header.svelte';
 interface Props {
 	title: string;
 }
 
-const { title } = Astro.props;
+const { title } = Astro.props; 
+const locals = Astro.locals;
+
+const localpb = locals.pb;
+
 ---
 
 <!DOCTYPE html>
@@ -20,13 +23,11 @@ const { title } = Astro.props;
 		<title>{title}</title>
 		<ViewTransitions />
 		</head>
-</head>
-	</head>
 	<body class="bg-base-1OO">
     <Header />
-		<main class="flex flex-col w-full place-items-center
-		">
-			<slot />
+
+		<main class="flex flex-col w-full place-items-center">
+			<slot/>
 		</main>
 		
 	</body>

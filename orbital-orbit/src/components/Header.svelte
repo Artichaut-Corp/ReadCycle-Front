@@ -1,16 +1,11 @@
 <script>
   let session = false;
 
+  import pb from "../pocketbase";
+
   function handleSignOut() {
-    return session = false;
+    pb.authStore.clear();
   }
-
-  function handleSignIn() {
-    return session = true;
-  }
-
-
-
 </script>
 
 <navbar> 
@@ -24,7 +19,7 @@
         <div class="flex items-stretch">
           <div class="flex place-items-center">
             {#if !session}
-              <button on:click="{handleSignIn}" class="link">Connection</button>
+              <a href="/login" class="link">Connection</a>
             {:else}
               <p class="inline-block">Connecté</p>
             {/if}
@@ -48,7 +43,6 @@
 <dialog id="logout" class="modal modal-bottom sm:modal-middle">
   <form method="dialog" class="modal-box">
     <h3 class="font-bold text-lg">Vous avez bien été déconnecté</h3>
-    <p class="py-4"><button class="link" href="/login">Se connecter avec un autre compte</button></p>
     <div class="modal-action">
       <!-- if there is a button in form, it will close the modal -->
       <button class="btn">Fermer</button>
