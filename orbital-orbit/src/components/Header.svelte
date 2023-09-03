@@ -1,13 +1,3 @@
-<script>
-  let session = false;
-
-  import pb from "../pocketbase";
-
-  function handleSignOut() {
-    pb.authStore.clear();
-  }
-</script>
-
 <navbar> 
   <header class="navbar bg-primary mb-12">
     <div class="flex-1">
