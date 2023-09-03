@@ -8,7 +8,7 @@
       <div class="flex justify-end flex-1 px-2">
         <div class="flex items-stretch">
           <div class="flex place-items-center">
-            {#if !session}
+            {#if 1==1}
               <a href="/login" class="link">Connection</a>
             {:else}
               <p class="inline-block">Connecté</p>
