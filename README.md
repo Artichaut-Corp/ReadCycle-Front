@@ -38,7 +38,3 @@ Nous utilisons Astro, Svelte et Tailwind principalement pour le front-end, le ba
 
 ## License
 Ce projet est actuellement sous licence MIT
-
-
-
-

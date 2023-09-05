@@ -26,4 +26,4 @@ jobs:
         with:
           project: readcycle-front # TODO: replace with Deno Deploy project name
           entrypoint: server/entry.mjs
-          root: distv
+          root: dist
