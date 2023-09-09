@@ -1,5 +1,5 @@
 <script>
-import BookItem from "./book-item.svelte";
+import BookItem from "./BookItem.svelte";
 
 export let resultat
 

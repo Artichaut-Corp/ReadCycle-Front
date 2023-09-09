@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Books from '../components/books.svelte';
+import BooksList from '../components/BooksList.svelte';
 
 //import { pb } from "../pocketbase";
 
@@ -11,7 +11,7 @@ const result = await locals.pb.collection('books').getList(1, 2);
 ---
     
 <Layout title="Books - Readcyle">
-    <Books client:load resultat={result} />    
+    <BooksList client:load resultat={result} />    
 </Layout>
 
 
