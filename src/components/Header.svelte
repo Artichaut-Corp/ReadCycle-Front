@@ -1,13 +1,3 @@
-<script>
-  let session = false;
-
-  import pb from "../pocketbase";
-
-  function handleSignOut() {
-    pb.authStore.clear();
-  }
-</script>
-
 <navbar> 
   <header class="navbar bg-primary mb-12">
     <div class="flex-1">
@@ -18,7 +8,7 @@
       <div class="flex justify-end flex-1 px-2">
         <div class="flex items-stretch">
           <div class="flex place-items-center">
-            {#if !session}
+            {#if 1==1}
               <a href="/login" class="link">Connection</a>
             {:else}
               <p class="inline-block">Connecté</p>
