@@ -1,6 +1,7 @@
-<script>
-    export let userData;
+<script lang="ts">
+   export let userData: any;
 </script>
+
 {#if userData}
   <h1>Profile de {userData.username}</h1>
 {:else}
