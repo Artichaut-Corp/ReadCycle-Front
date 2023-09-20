@@ -1,5 +1,6 @@
 <script>
     import { writable } from "svelte/store";
+    export let Id
     export let Title
     export let Author
     export let Genre
@@ -12,7 +13,7 @@
 
 <div class="card card-side bg-base-200 shadow-xl mx-5 my-5 min-w-fit max-w-xl">
     <div class="card-body">
-      <h1 class="card-title"><span class="text-base-content">Title: </span>{Title}</h1>
+      <h1 class="card-title link"><a href="/books/{Id}">Title: {Title}</a></h1>
       <p><span class="text-neutral-content text-lg font-bold">Author: </span>{Author}</p>
       <p><span class="text-neutral-content text-lg font-bold">Genre: </span>{Genre}</p>
       <p><span class="text-neutral-content text-lg font-bold">Editor: </span>{Editor}</p>

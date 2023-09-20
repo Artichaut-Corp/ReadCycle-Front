@@ -15,6 +15,11 @@
       <a class="btn btn-ghost normal-case text-x1" href="/">TBD</a>
       <img src="logo.svg" alt="logo"/>
     </div>
+    <div class="grow">
+      <form method="POST">
+        <input type="search" placeholder="Chercher un livre, un auteur" class="input input-bordered input-secondary w-full max-w-xs" />
+      </form>
+    </div>
     <div class="flex-none">
       <div class="flex justify-end flex-1 px-2">
         <div class="flex items-stretch">
@@ -32,12 +37,13 @@
             <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-200 rounded-box w-52 mt-4">
               {#if userData.isValid}
                 <li><a class="link" href="/profile">Profile</a></li>
-                <!-- Ici on ne peut malheuresement pas accéder au propriétés d'astro, et donc je pense créer un page à part entière-->
+                <!-- Ici on ne peut malheuresement pas accéder au propriétés d'astro, et donc je pense créer un page à part entière pour logout-->
                 <li><button onClick="" on:click={logout} class="link">Déconnexion</button></li>
               {:else}
                 <li><a class="link" href="/login">Connection</a></li>
               {/if}
               <li><a class="link" href="/books">Livres</a></li>
+              <li><a class="link" href="/authors">Auteurs</a></li>
             </ul>
           </div>
         </div>
