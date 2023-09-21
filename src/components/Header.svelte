@@ -1,11 +1,9 @@
 <script>
-  import  pb from '../pocketbase.ts'
-
   export let userData;
   // N'est meme pas exécutée
-  const logout = async () => {
-    pb.authStore.clear()
-  }
+  //const logout = async () => {
+  //  pb.authStore.clear()
+  //}
 
 </script>
 
