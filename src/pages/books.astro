@@ -6,8 +6,9 @@ import BooksList from '../components/BooksList.svelte';
 
 const locals = Astro.locals;
 
-const result = await locals.pb.collection('books').getList(1, 2);
-
+const result = await locals.pb.collection('books').getList(1, 2, {
+  expand: "author_id,genres_id",
+});
 ---
     
 <Layout title="Books - Readcyle">
