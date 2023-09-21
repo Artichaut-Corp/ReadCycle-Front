@@ -34,7 +34,7 @@ Vous pouvez voir l'application localement avec la commande: ``npm run dev``
 5. Partagez votre propre expérience de lecture, laissez des critiques et contribuez à faire de LivreConnect un espace dynamique pour les amateurs de livres. :o:
 
 ## Outils de Dévelopement
-Nous utilisons Astro, Svelte et Tailwind principalement pour le front-end, le back-end étant assuré par Pocketbase
+Nous utilisons Astro, Svelte et Tailwind principalement pour le front-end, le back-end étant assuré par Pocketbase et host sur deno
 
 ## License
 Ce projet est actuellement sous licence MIT
