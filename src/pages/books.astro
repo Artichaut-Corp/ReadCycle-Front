@@ -1,26 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import BooksList from '../components/BooksList.svelte';
+import Books from '../components/books.svelte';
 
 //import { pb } from "../pocketbase";
 
 const locals = Astro.locals;
 
-const result = await locals.pb.collection('books').getList(1, 2, {
-  expand: "author_id,genres_id",
-});
+const result = await locals.pb.collection('books').getList(1, 2);
+
 ---
     
 <Layout title="Books - Readcyle">
-    <h1 class="inline-block text-3xl sm:text-3xl font-extrabold text-primary-content tracking-tigh">Voilà tous les livres en réserve !</h1>
-    <h2 class="italic text-accent-content">Vous y trouverez sûrement votre bonheur</h2>
-    <BooksList client:load resultat={result} />    
-    <!--Composant à réaliser prenant un nombre comme props en et proposant les pages alentours-->
-    <div class="tabs tabs-boxed">
-      <a class="tab tab-active">Tab 1</a> 
-      <a class="tab">Tab 2</a> 
-      <a class="tab">Tab 3</a>
-    </div>
+    <Books client:load resultat={result} />    
 </Layout>
 
 
