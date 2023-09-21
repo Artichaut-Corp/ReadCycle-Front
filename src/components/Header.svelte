@@ -13,7 +13,7 @@
   <header class="navbar bg-primary mb-12">
     <div class="flex-1">
       <a class="btn btn-ghost normal-case text-x1" href="/">TBD</a>
-      <img src="logo.svg" alt="logo"/>
+      <img src="/logo.svg" alt="logo"/>
     </div>
     <div class="grow">
       <form method="POST">
