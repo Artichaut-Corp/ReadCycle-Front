@@ -1,5 +1,8 @@
 name: Deploy
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   deploy:
@@ -24,6 +27,6 @@ jobs:
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: readcycle-front # TODO: replace with Deno Deploy project name
+          project: readcycle-front 
           entrypoint: server/entry.mjs
           root: dist
