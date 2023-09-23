@@ -11,16 +11,16 @@
 
 <navbar> 
   <header class="navbar bg-primary mb-12">
-    <div class="flex-1">
+    <div class="flex-none justify-start">
       <a class="btn btn-ghost normal-case text-x1" href="/">TBD</a>
       <img src="/logo.svg" alt="logo"/>
     </div>
-    <div class="grow">
+    <div class="flex-1 justify-center">
       <form method="POST">
-        <input type="search" placeholder="Chercher un livre, un auteur" class="input input-bordered input-secondary w-full max-w-xs" />
+        <input type="search" placeholder="Chercher un livre, un auteur" class="input input-bordered input-secondary focus:w-96" />
       </form>
     </div>
-    <div class="flex-none">
+    <div class="flex-none justify-end">
       <div class="flex justify-end flex-1 px-2">
         <div class="flex items-stretch">
           <div class="flex place-items-center">

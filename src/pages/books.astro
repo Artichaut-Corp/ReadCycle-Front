@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 
 const locals = Astro.locals;
 
-const result = await locals.pb.collection('books').getList(1, 2, {
+const result = await locals.pb.collection('books').getFullList({
   expand: "author_id,genres_id",
 });
 
@@ -11,17 +11,30 @@ const result = await locals.pb.collection('books').getList(1, 2, {
     
 <Layout title="Books - Readcyle" transition:name="book_zoom" transition:persist>
     <h1 class="inline-block text-3xl sm:text-3xl font-extrabold text-primary-content tracking-tigh">Voilà tous les livres en réserve !</h1>
-    <h2 class="italic text-accent-content">Vous y trouverez sûrement votre bonheur</h2>
+    <h2 class="italic text-accent-content mb-4">Vous y trouverez sûrement votre bonheur</h2>
 
-    <ul class="flex">
+    <ul class="grid grid-cols-2 gap-2">
  {
-  result.items.map((book: any) => (
+  result.map((book: any) => (
   <li>
-    <div class="card card-side bg-base-200 shadow-xl mx-5 my-5 min-w-fit max-w-xl">
-    <a href=`/books/${book.id}`>
-      <figure ><img transition:name=`book-img-${book.id}` src={`https://backendpblivres.hop.sh/api/files/ct4mfehqanmpshs/${book.id}/${book.cover}`} alt="Movie"/></figure>
+    <div class="card lg:card-side bg-base-200 shadow-xl my-5 max-w-screen-sm max-md:max-h-sm">
+    <figure>
+       <a href=`/books/${book.id}`>
+      <img 
+        src={`https://backendpblivres.hop.sh/api/files/ct4mfehqanmpshs/${book.id}/${book.cover}`}, 
+        alt={`Couverture de ${book.title}`},
+        transition:name=`book-img-${book.id}` 
+        sizes="
+    (min-width: 2420px) 2000px, 
+    (min-width: 720px) calc(94.76vw - 274px), 
+    (min-width: 520px) calc(100vw - 96px), 
+    calc(100vw - 32px)
+  "
+      />
     </a>
-    <div class="card-body">
+   
+    </figure>
+       <div class="card-body">
         <h1 class="card-title link"><a href=`/books/${book.id}`>Titre: {book.title}</a></h1>
         <p><span class="text-neutral-content text-lg font-bold">Auteur: </span><a href=`/authors/${book.author_id}` class="link">{book.expand.author_id.first_name}, {book.expand.author_id.last_name}</a></p>
         <p>
