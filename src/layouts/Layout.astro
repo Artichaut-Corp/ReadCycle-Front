@@ -1,6 +1,7 @@
 --- 
 import {ViewTransitions} from 'astro:transitions';
 import Header from '../components/Header.svelte';
+
 interface Props {
 	title: string;
 }
@@ -8,7 +9,8 @@ interface Props {
 const { title } = Astro.props; 
 
 const locals = Astro.locals;
-const data = locals.pb.authStore;
+console.log(locals.pb.authStore);
+let data = locals.pb.authStore
 ---
 
 <!DOCTYPE html>
@@ -23,12 +25,10 @@ const data = locals.pb.authStore;
 		<ViewTransitions />
 		</head>
 	<body class="bg-base-1OO">
-    <Header userData={data}/>
-
+    	<Header userData={data}/>
 		<main class="flex flex-col w-full place-items-center">
 			<slot/>
 		</main>
-		
 	</body>
 </html>
 

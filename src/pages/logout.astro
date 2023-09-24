@@ -1,0 +1,14 @@
+---
+    const locals = Astro.locals
+
+    
+    if (locals.pb.authStore.isValid) {
+        locals.pb.authStore.clear();
+        return Astro.redirect("/");
+    } else {
+        return new Response("Erreur: Vous n'êtes pas connecté")
+    }
+---
+
+
+

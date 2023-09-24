@@ -7,30 +7,29 @@ const errors = { username: "", password: ""};
  if (Astro.request.method === "POST") {
    try {
       const data = await Astro.request.formData();
+      
       const username = data.get("username");
       const password = data.get("password");
-    // Must sanityze fields received from the user
-    if (typeof username == null || typeof password == null ) {
+      
+      // Must sanityze fields received from the user
+      if (typeof username == null || typeof password == null ) {
         errors.username += "Email cannot be empty. ";
         errors.password += "Password cannot be empty. ";
         
-    } 
-    if (typeof password !== "string" || password.length < 6) {
-      errors.password += "Password must be at least 6 characters. ";
-    }
-    if (username == "123456789") {
+      } 
+      if (typeof password !== "string" || password.length < 6) {
+        errors.password += "Password must be at least 6 characters. ";
+      }
+      if (username == "123456789") {
         errors.username += "Super oui oui ";
+      }
+      const hasErrors = Object.values(errors).some(msg => msg);
 
-    } 
-
-    const hasErrors = Object.values(errors).some(msg => msg);
-
-    if (!hasErrors) {
+      // End of client side checking, we can test 
+      if (!hasErrors) {
         const authData = await locals.pb.collection('users').authWithPassword(username, password);
-        console.log(locals.pb.authStore.isValid);
-        //locals.pb.authStore.clear();
         return Astro.redirect("/profile");
-    }
+      }
     
    } catch (error) {
      if (error instanceof Error) {
