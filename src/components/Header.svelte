@@ -1,16 +1,9 @@
 <script>
-  import  pb from '../pocketbase.ts'
-
   export let userData;
-  // N'est meme pas exécutée
-  const logout = async () => {
-    pb.authStore.clear()
-  }
-
 </script>
 
 <navbar> 
-  <header class="navbar bg-primary mb-12">
+  <header class="navbar bg-primary mb-12 top-0">
     <div class="flex-none justify-start">
       <a class="btn btn-ghost normal-case text-x1" href="/">TBD</a>
       <img src="/logo.svg" alt="logo"/>
@@ -34,11 +27,11 @@
             <label tabindex="0" class="btn btn-ghost rounded-btn">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg> 
             </label>
+            <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
             <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-200 rounded-box w-52 mt-4">
               {#if userData.isValid}
                 <li><a class="link" href="/profile">Profile</a></li>
-                <!-- Ici on ne peut malheuresement pas accéder au propriétés d'astro, et donc je pense créer un page à part entière pour logout-->
-                <li><button onClick="" on:click={logout} class="link">Déconnexion</button></li>
+                <li><a href="/logout" class="link">Déconnexion</a></li>
               {:else}
                 <li><a class="link" href="/login">Connection</a></li>
               {/if}
@@ -51,14 +44,3 @@
     </div>
   </header>
 </navbar>
-
-<dialog id="logout" class="modal modal-bottom sm:modal-middle">
-  <form method="dialog" class="modal-box">
-    <h3 class="font-bold text-lg">Vous avez bien été déconnecté</h3>
-    <div class="modal-action">
-      <!-- if there is a button in form, it will close the modal -->
-      <button class="btn">Fermer</button>
-    </div>
-  </form>
-</dialog>
-
