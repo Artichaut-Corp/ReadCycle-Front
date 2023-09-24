@@ -1,7 +1,5 @@
 <script>
-
   export let userData;
-
 </script>
 
 <navbar> 
