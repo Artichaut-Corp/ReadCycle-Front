@@ -3,7 +3,15 @@
 // Same as login but we need more fields, like name or avatar
 //
 
-import Layout from '../layouts/Layout.astro';
+interface userData {
+  username: String,
+  email: String,
+  emailVisbility: Boolean,
+  password: String,
+  passwordConfirm: String,
+}
+
+import Layout from '../../layouts/Layout.astro';
 
   const locals  = Astro.locals;
 
@@ -44,6 +52,7 @@ const errors = { email: "", password: ""};
 ---
 
 <Layout title='Signup - ReadCycle'>
+
 <h1 class="text-base-content text-2xl mb-4 ">Créer un compte</h1>
     <form method="post" class="place-items-center flex-col flex w-full">
     {
@@ -72,4 +81,40 @@ const errors = { email: "", password: ""};
     </button>
   </form>
 
+  <div class="hero min-h-screen bg-base-200">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+      <div class="text-center lg:text-left">
+        <h1 class="text-5xl font-bold text-center">Créer un compte</h1>
+        <div>
+          <ul class="steps steps-vertical lg:steps-horizontal">
+            <li class="step step-primary">Info</li>
+            <li class="step step-primary">Mot de passe</li>
+            <li class="step">Profile</li>
+            <li class="step">C'est parti</li>
+          </ul>
+        </div>
+        <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+      </div>
+      <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div class="card-body">
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Nom d'utilisateur</span>
+            </label>
+            <input type="text" placeholder="email" class="input input-bordered" />
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Email</span>
+            </label>
+            <input type="text" placeholder="password" class="input input-bordered" />
+
+          </div>
+          <div class="form-control mt-6">
+            <button class="btn btn-primary">Suite</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </Layout>

@@ -1,0 +1,147 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const locals = Astro.locals;
+
+const errors = { username: "", password: "" };
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+
+    const username = data.get("username");
+    const password = data.get("password");
+
+    // Must sanityze fields received from the user
+    if (typeof username == null || typeof password == null) {
+      errors.username += "Email cannot be empty. ";
+      errors.password += "Password cannot be empty. ";
+    }
+    if (typeof password !== "string" || password.length < 6) {
+      errors.password += "Password must be at least 6 characters. ";
+    }
+    if (username == "123456789") {
+      errors.username += "Super oui oui ";
+    }
+    const hasErrors = Object.values(errors).some((msg) => msg);
+
+    // End of client side checking, we can test
+    if (!hasErrors) {
+      const authData = await locals.pb
+        .collection("users")
+        .authWithPassword(username, password);
+      return Astro.redirect("/profile");
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
+  }
+}
+---
+
+<Layout title="Login - ReadCycle">
+  <div class="hero min-h-screen" style="background-image: url(/logo.svg);">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+      <div class="text-center lg:text-left">
+        <h1 class="text-5xl font-bold">Connection</h1>
+        <p class="py-6">
+          Vous n'avez pas de compte ? <a
+            href="/auth/signup"
+            class="link link-focus">Cliquez ici pour en créer un</a
+          >
+        </p>
+      </div>
+      <form
+        method="post"
+        class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100"
+      >
+        <div class="card-body">
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Email</span>
+            </label>
+            <input
+              type="text"
+              placeholder="email"
+              class="input input-bordered"
+            />
+          </div>
+          {
+            errors.username && (
+              <div class="alert alert-warning max-w-xs mb-4 ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="stroke-current shrink-0 h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
+                </svg>
+                <span>{errors.username}</span>
+              </div>
+            )
+          }
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Mot De Passe</span>
+            </label>
+            <input
+              type="password"
+              placeholder="password"
+              class="input input-bordered"
+            />
+            <label class="label">
+              <a
+                href="/auth/resetpassword"
+                class="label-text-alt link link-hover">Mot de passe oublié ?</a
+              >
+            </label>
+            {
+              errors.password && (
+                <div class="alert alert-warning max-w-xs mb-4 ">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="stroke-current shrink-0 h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                    />
+                  </svg>
+                  <span>{errors.password}</span>
+                </div>
+              )
+            }
+          </div>
+          <div class="form-control mt-6">
+            <button class="btn btn-primary" type="submit">
+              Connection
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</Layout>
