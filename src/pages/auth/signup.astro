@@ -19,10 +19,12 @@ const signUp = async (authData: any) => {
     await login(authData.email, authData.password);
   } catch (err) {
     console.error(err);
+    errors.server +=
+      "Quelque chose s'est visiblemtn mal passé sur le serveur...";
   }
 };
 
-const errors = { email: "", password: "" };
+const errors = { email: "", password: "", server: "" };
 
 if (Astro.request.method === "POST") {
   try {
@@ -36,25 +38,35 @@ if (Astro.request.method === "POST") {
     };
 
     console.log(authData);
-    
 
     // Must sanityze fields received from the user
-    // if (typeof authData.email == null || typeof authData.password || null) {
-    //   errors.email += "Email cannot be empty. ";
-    //   errors.password += "Password cannot be empty. ";
-    // }
+    if (typeof authData.email == null || typeof authData.password == null) {
+      errors.email += "Email cannot be empty. ";
+      errors.password += "Password cannot be empty. ";
+    }
     if (typeof authData.password !== "string" || authData.password.length < 6) {
       errors.password += "Password must be at least 6 characters. ";
     }
     if (authData.password != authData.passwordConfirm) {
       errors.password += "Pas le même mot de passe";
     }
+    if (
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+        String(authData.email),
+      )
+    ) {
+      errors.email += "Votre email n'est pas valide";
+    }
 
-    const hasErrors = Object.values(errors).some((msg) => msg);
+    let hasErrors = Object.values(errors).some((msg) => msg);
 
     if (!hasErrors) {
       signUp(authData);
-      return Astro.redirect("/profile");
+
+      hasErrors = Object.values(errors).some((msg) => msg);
+      if (!hasErrors) {
+        return Astro.redirect("/profile");
+      }
     }
   } catch (error) {
     if (error instanceof Error) {
