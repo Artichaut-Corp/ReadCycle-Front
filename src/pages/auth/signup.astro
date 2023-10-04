@@ -1,0 +1,218 @@
+---
+//
+// Same as login but we need more fields, like name or avatar
+//
+
+import Layout from "../../layouts/Layout.astro";
+
+const locals = Astro.locals;
+
+const login = async (email: string, password: string) => {
+  await locals.pb.collection("users").authWithPassword(email, password);
+};
+
+const signUp = async (authData: any) => {
+  try {
+    // Create users model
+    const createdUser = await locals.pb.collection("users").create(authData);
+    // and then login
+    await login(authData.email, authData.password);
+  } catch (err) {
+    console.error(err);
+    errors.server +=
+      "Quelque chose s'est visiblemtn mal passé sur le serveur...";
+  }
+};
+
+const errors = { email: "", password: "", server: "" };
+
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+
+    const authData = {
+      email: data.get("email"),
+      username: data.get("username"),
+      password: data.get("password"),
+      passwordConfirm: data.get("password_confirm"),
+    };
+
+    console.log(authData);
+
+    // Must sanityze fields received from the user
+    if (typeof authData.email == null || typeof authData.password == null) {
+      errors.email += "Email cannot be empty. ";
+      errors.password += "Password cannot be empty. ";
+    }
+    if (typeof authData.password !== "string" || authData.password.length < 6) {
+      errors.password += "Password must be at least 6 characters. ";
+    }
+    if (authData.password != authData.passwordConfirm) {
+      errors.password += "Pas le même mot de passe";
+    }
+    if (
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+        String(authData.email),
+      )
+    ) {
+      errors.email += "Votre email n'est pas valide";
+    }
+
+    let hasErrors = Object.values(errors).some((msg) => msg);
+
+    if (!hasErrors) {
+      signUp(authData);
+
+      hasErrors = Object.values(errors).some((msg) => msg);
+      if (!hasErrors) {
+        return Astro.redirect("/profile");
+      }
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
+  }
+}
+---
+
+<Layout title="Signup - ReadCycle">
+  <div class="hero min-h-screen">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+      <div class="text-center lg:text-left">
+        <h1 class="text-5xl font-bold text-center">Créer un compte</h1>
+
+        <div>
+          <ul class="steps steps-vertical lg:steps-horizontal">
+            <li class="step step-primary">Info</li>
+            <li class="step">Mot de passe</li>
+            <li class="step">Profile</li>
+            <li class="step">Cest parti</li>
+          </ul>
+        </div>
+
+        <p class="py-6">
+          Vous possédez déjà un compte ? <a
+            class="link link-primary"
+            href="/auth/login">Connectez vous ici</a
+          >
+        </p>
+      </div>
+
+      <form
+        method="post"
+        class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100"
+      >
+        <div class="card-body">
+          {
+            errors.email && (
+              <div class="alert alert-warning max-w-xs mb-4 ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="stroke-current shrink-0 h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
+                </svg>
+                <span>{errors.email}</span>
+              </div>
+            )
+          }
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Email</span>
+            </label>
+            <input
+              required
+              name="email"
+              type="text"
+              placeholder="Email"
+              class="input input-bordered input-secondary"
+            />
+          </div>
+
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Nom dutilisateur</span>
+            </label>
+            <input
+              required
+              name="username"
+              type="text"
+              placeholder="Nom d'utilisateur"
+              class="input input-bordered input-secondary"
+            />
+          </div>
+          {
+            errors.password && (
+              <div class="alert alert-warning max-w-xs mb-4 ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="stroke-current shrink-0 h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
+                </svg>
+                <span>{errors.password}</span>
+              </div>
+            )
+          }
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Mot de passe</span>
+            </label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Mot de passe"
+              class="input input-bordered input-secondary"
+            />
+          </div>
+
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Confirmez votre mot de passe</span>
+            </label>
+            <input
+              type="password"
+              name="password_confirm"
+              placeholder="Confirmation"
+              class="input input-bordered input-secondary"
+            />
+          </div>
+
+          <div class="form-control mt-6">
+            <button class="btn btn-primary mb-4" type="submit">
+              Continuer
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</Layout>

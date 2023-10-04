@@ -20,7 +20,7 @@
             {#if userData.isValid}
               <a class="link" href="/profile">{userData.model.name}</a>
             {:else}
-              <a  class="link" href="/login">Connection</a>
+              <a  class="link" href="/auth/login">Connection</a>
             {/if}
           </div>
           <div class="dropdown dropdown-end">
@@ -31,9 +31,9 @@
             <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-200 rounded-box w-52 mt-4">
               {#if userData.isValid}
                 <li><a class="link" href="/profile">Profile</a></li>
-                <li><a href="/logout" class="link">Déconnexion</a></li>
+                <li><a href="/auth/logout" class="link">Déconnexion</a></li>
               {:else}
-                <li><a class="link" href="/login">Connection</a></li>
+                <li><a class="link" href="/auth/login">Connection</a></li>
               {/if}
               <li><a class="link" href="/books">Livres</a></li>
               <li><a class="link" href="/authors">Auteurs</a></li>
