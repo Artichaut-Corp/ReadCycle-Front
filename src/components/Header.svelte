@@ -5,12 +5,12 @@
 <navbar> 
   <header class="navbar bg-primary mb-12 top-0">
     <div class="flex-none justify-start">
-      <a class="btn btn-ghost normal-case text-x1" href="/">TBD</a>
+      <a class="btn btn-ghost normal-case text-x1" href="/">ReadCycle</a>
       <img src="/logo.svg" alt="logo"/>
     </div>
     <div class="flex-1 justify-center">
       <form method="POST">
-        <input type="search" placeholder="Chercher un livre, un auteur" class="input input-bordered input-secondary focus:w-96" />
+        <input type="search" placeholder="Chercher un livre, un auteur..." class="input input-bordered input-secondary focus:w-96" />
       </form>
     </div>
     <div class="flex-none justify-end">
